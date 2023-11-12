@@ -1,6 +1,7 @@
 package com.sxqibo.spring3admin.config;
 
 
+import org.mybatis.spring.annotation.MapperScan;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
@@ -10,6 +11,7 @@ import org.springframework.core.env.Environment;
 
 @ComponentScan("com.sxqibo")
 @SpringBootApplication
+@MapperScan(basePackages = "com.sxqibo.spring3admin.mapper")
 public class Spring3adminApplication {
 
     private static final Logger LOG = LoggerFactory.getLogger(Spring3adminApplication.class);
