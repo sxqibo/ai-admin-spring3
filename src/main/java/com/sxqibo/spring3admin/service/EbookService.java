@@ -27,14 +27,7 @@ public class EbookService {
         criteria.andNameLike("%" + req.getName() + "%");
         List<Ebook> ebookList = ebookMapper.selectByExample(ebookExample);
 
-        // 遍历赋值新列表
-        List<EbookResp> respList = new ArrayList<>();
-        for (Ebook ebook : ebookList) {
-            // 对象复制
-            EbookResp ebookResp = CopyUtil.copy(ebook, EbookResp.class);
-            respList.add(ebookResp);
-        }
-
-        return respList;
+        // 列表复制
+        return CopyUtil.copyList(ebookList, EbookResp.class);
     }
 }
