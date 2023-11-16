@@ -1,11 +1,16 @@
 package com.sxqibo.spring3admin.service;
 
+import com.fasterxml.jackson.databind.util.BeanUtil;
 import com.sxqibo.spring3admin.domain.Ebook;
 import com.sxqibo.spring3admin.domain.EbookExample;
 import com.sxqibo.spring3admin.mapper.EbookMapper;
+import com.sxqibo.spring3admin.req.EbookReq;
+import com.sxqibo.spring3admin.resp.EbookResp;
 import jakarta.annotation.Resource;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -14,10 +19,21 @@ public class EbookService {
     @Resource
     private EbookMapper ebookMapper;
 
-    public List<Ebook> list(String name) {
+    public List<EbookResp> list(EbookReq req) {
+        // 查询
         EbookExample ebookExample = new EbookExample();
         EbookExample.Criteria criteria = ebookExample.createCriteria();
-        criteria.andNameLike("%" + name +"%");
-        return ebookMapper.selectByExample(ebookExample);
+        criteria.andNameLike("%" + req.getName() + "%");
+        List<Ebook> ebookList = ebookMapper.selectByExample(ebookExample);
+
+        // 遍历赋值新列表
+        List<EbookResp> respList = new ArrayList<>();
+        EbookResp ebookResp = new EbookResp();
+        for (Ebook ebook : ebookList) {
+            BeanUtils.copyProperties(ebook, ebookResp);
+            respList.add(ebookResp);
+        }
+
+        return respList;
     }
 }
