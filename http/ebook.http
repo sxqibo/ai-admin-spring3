@@ -1,4 +1,4 @@
-GET http://localhost:8888/api/ebook/list
+GET http://localhost:8888/api/ebook/list?name=Spring
 # Accept: application/json
 
 ###
