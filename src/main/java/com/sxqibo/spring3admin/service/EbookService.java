@@ -6,6 +6,7 @@ import com.sxqibo.spring3admin.domain.EbookExample;
 import com.sxqibo.spring3admin.mapper.EbookMapper;
 import com.sxqibo.spring3admin.req.EbookReq;
 import com.sxqibo.spring3admin.resp.EbookResp;
+import com.sxqibo.spring3admin.util.CopyUtil;
 import jakarta.annotation.Resource;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
@@ -28,9 +29,9 @@ public class EbookService {
 
         // 遍历赋值新列表
         List<EbookResp> respList = new ArrayList<>();
-        EbookResp ebookResp = new EbookResp();
         for (Ebook ebook : ebookList) {
-            BeanUtils.copyProperties(ebook, ebookResp);
+            // 对象复制
+            EbookResp ebookResp = CopyUtil.copy(ebook, EbookResp.class);
             respList.add(ebookResp);
         }
 
