@@ -40,9 +40,9 @@
                              targetPackage="com.sxqibo.spring3admin.mapper"
                              type="XMLMAPPER"/>
 
-        <!--<table tableName=""/>-->
+        <table tableName=""/>
         <!--<table tableName="dev_demo1" domainObjectName="Demo1"/>-->
-        <table tableName="ebook"/>
+        <!--<table tableName="ebook"/>-->
         <!--<table tableName="category"/>-->
         <!--<table tableName="doc"/>-->
         <!--<table tableName="content"/>-->
