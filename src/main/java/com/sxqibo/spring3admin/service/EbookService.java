@@ -7,6 +7,7 @@ import com.sxqibo.spring3admin.domain.EbookExample;
 import com.sxqibo.spring3admin.mapper.EbookMapper;
 import com.sxqibo.spring3admin.req.EbookReq;
 import com.sxqibo.spring3admin.resp.EbookResp;
+import com.sxqibo.spring3admin.resp.PageResp;
 import com.sxqibo.spring3admin.util.CopyUtil;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
@@ -24,7 +25,7 @@ public class EbookService {
     @Resource
     private EbookMapper ebookMapper;
 
-    public List<EbookResp> list(EbookReq req) {
+    public PageResp<EbookResp> list(EbookReq req) {
         EbookExample ebookExample = new EbookExample();
 
         // 查询
@@ -34,7 +35,7 @@ public class EbookService {
         }
 
         // 起始页，每页数量
-        PageHelper.startPage(1, 3);
+        PageHelper.startPage(req.getPage(), req.getSize());
         List<Ebook> ebookList = ebookMapper.selectByExample(ebookExample);
 
         // 获取总行数和总页数
@@ -43,6 +44,13 @@ public class EbookService {
         LOG.info("总页数：{}", pageInfo.getPages());
 
         // 列表复制
-        return CopyUtil.copyList(ebookList, EbookResp.class);
+        List<EbookResp> list = CopyUtil.copyList(ebookList, EbookResp.class);
+
+        // 返回页数参数
+        PageResp<EbookResp> pageResp = new PageResp<>();
+        pageResp.setTotal(pageInfo.getTotal());
+        pageResp.setList(list);
+
+        return pageResp;
     }
 }

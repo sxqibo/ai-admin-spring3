@@ -1,6 +1,6 @@
 package com.sxqibo.spring3admin.req;
 
-public class EbookReq {
+public class EbookReq extends PageReq {
     private Integer id;
 
     private String name;

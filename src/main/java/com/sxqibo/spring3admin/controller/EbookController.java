@@ -4,6 +4,7 @@ import com.sxqibo.spring3admin.domain.Ebook;
 import com.sxqibo.spring3admin.req.EbookReq;
 import com.sxqibo.spring3admin.resp.CommonResp;
 import com.sxqibo.spring3admin.resp.EbookResp;
+import com.sxqibo.spring3admin.resp.PageResp;
 import com.sxqibo.spring3admin.service.EbookService;
 import jakarta.annotation.Resource;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,8 +22,8 @@ public class EbookController {
 
     @GetMapping("/list")
     public CommonResp list(EbookReq req) {
-        CommonResp<List<EbookResp>> resp = new CommonResp<>();
-        List<EbookResp> list = ebookService.list(req);
+        CommonResp<PageResp<EbookResp>> resp = new CommonResp<>();
+        PageResp<EbookResp> list = ebookService.list(req);
         resp.setContent(list);
         return resp;
     }
